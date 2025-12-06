@@ -107,7 +107,8 @@ def parse_args():
         type=float,
         default=0.5,
         help='Opacity of painted segmentation map. In (0, 1] range.')
-    parser.add_argument('--local_rank', type=int, default=0)
+    # parser.add_argument('--local_rank', type=int, default=0)
+    parser.add_argument('--local_rank', '--local-rank', type=int, default=0)
     args = parser.parse_args()
     if 'LOCAL_RANK' not in os.environ:
         os.environ['LOCAL_RANK'] = str(args.local_rank)

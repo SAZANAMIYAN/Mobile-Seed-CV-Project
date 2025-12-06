@@ -162,5 +162,9 @@ cython_debug/
 re_model.py
 /ckpt
 /work_dirs
+/data
 .*/
-*.txt
+*.pth
+*.zip
+*.log
+__pycache__/

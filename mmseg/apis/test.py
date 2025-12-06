@@ -92,7 +92,17 @@ def single_gpu_test(model,
     # we use batch_sampler to get correct data idx
     loader_indices = data_loader.batch_sampler
 
-    for batch_indices, data in zip(loader_indices, data_loader):
+    # ==================================================================
+    # MODIFIED: Added enumerate to track index and break early
+    # ==================================================================
+    for i, (batch_indices, data) in enumerate(zip(loader_indices, data_loader)):
+        
+        # === DEBUG: Stop after 500 batches ===
+        if i >= 500:
+            print(f"\n[DEBUG MODE] Reached {i} batches, stopping test early.")
+            break
+        # =====================================
+
         with torch.no_grad():
             result = model(return_loss=False, **data)
             # result_bound = None
@@ -216,7 +226,18 @@ def multi_gpu_test(model,
     if rank == 0:
         prog_bar = mmcv.ProgressBar(len(dataset))
 
-    for batch_indices, data in zip(loader_indices, data_loader):
+    # ==================================================================
+    # MODIFIED: Added enumerate to track index and break early
+    # ==================================================================
+    for i, (batch_indices, data) in enumerate(zip(loader_indices, data_loader)):
+        
+        # === DEBUG: Stop after 500 batches ===
+        if i >= 500:
+            if rank == 0:
+                print(f"\n[DEBUG MODE] Reached {i} batches, stopping test early.")
+            break
+        # =====================================
+
         with torch.no_grad():
             result = model(return_loss=False, rescale=True, **data)
 

@@ -4,7 +4,7 @@ https://github.com/open-mmlab/mmsegmentation/blob/master/configs/_base_/datasets
 '''
 # dataset settings
 dataset_type = 'PascalContextDataset_boundary'
-data_root = '../data/VOCdevkit/VOC2010/'
+data_root = '/root/Mobile-Seed/data/VOCdevkit/VOC2010'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 
@@ -39,8 +39,8 @@ test_pipeline = [
         ])
 ]
 data = dict(
-    samples_per_gpu=16,
-    workers_per_gpu=16,
+    samples_per_gpu=16, # 或8
+    workers_per_gpu=4, # 或6 
     train=dict(
         type=dataset_type,
         data_root=data_root,

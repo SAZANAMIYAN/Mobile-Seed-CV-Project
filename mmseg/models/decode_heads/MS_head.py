@@ -117,6 +117,7 @@ class BoundaryHead(BaseDecodeHead):
         bound_feat, bound_logit  =self.forward(seg_feat,img_metas[0]['pad_shape'],infer = False)
         return bound_feat,bound_logit
     
+
     def losses(self, bound_logit, sebound_label):
         loss = dict()
 
@@ -133,6 +134,10 @@ class BoundaryHead(BaseDecodeHead):
         # loss['loss_be_int'] = sum(self.loss_decode(edge_feat[:,i : i + 1],edge_label) for i in range(edge_feat.shape[1]))
 
         return loss
+    
+   
+        
+   
 
     def forward_train(self, seg_feat,img_refine, img_metas, gt_semantic_segedge,train_cfg):
         bound_feat,bound_logit = self.forward(seg_feat,img_metas[0]['pad_shape']) # imgs in a mini-batch should share the same shape
